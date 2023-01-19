@@ -1,0 +1,19 @@
+name: GitHub Send Email
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
+jobs:
+  mail_on_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: ${{github.repository}} push event
+          body: Push was made in your ${{github.repository}} repository by ${{github.event.pusher.name}} with a message - '${{github.event.head_commit.message}}'
+          to: ${{secrets.MAIL_USERNAME}}
+          from: Github email action
+          
